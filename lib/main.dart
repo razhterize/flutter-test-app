@@ -1,40 +1,61 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(App());
+  runApp(const App());
 }
 
-class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+class App extends StatefulWidget {
+  const App({super.key});
+
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  int counter = 0;
+  int currentDIsplayIndex = 0;
+  void increment() {
+    setState(() {
+      counter++;
+      while (true){
+        sleep(const Duration(milliseconds: 100))
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: "Sup World!",
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blueAccent,
-          title: const Text("Flutter App"),
+          title: const Text("My App"),
         ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () => {},
+        body: Column(
+          children: [Text("Current Nav Bar index is $currentDIsplayIndex")],
         ),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.blueAccent,
           selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.blue,
+          backgroundColor: Colors.black26,
+          currentIndex: currentDIsplayIndex,
+          showUnselectedLabels: false,
+          onTap: (index) => setState(() {
+            currentDIsplayIndex = index;
+          }),
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
+              label: "Home",
+              icon: Icon(Icons.home_filled),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-            ),
-            BottomNavigationBarItem(
+              label: "Contact",
               icon: Icon(Icons.people),
-              label: 'About',
+            ),
+            BottomNavigationBarItem(
+              label: "Settings",
+              icon: Icon(Icons.settings),
             ),
           ],
         ),
